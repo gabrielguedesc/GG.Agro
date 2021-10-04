@@ -10,25 +10,25 @@ namespace GG.Agro.Infra.Repositories
 {
     public class BaseRepository<T> : IReadRepository<T>, IWriteRepository<T> where T : Entity
     {
-        private DbSet<T> Db { get; }
-        private AgroContext AgroContext { get; }
+        private DbSet<T> db;
+        private AgroContext agroContext;
 
         public BaseRepository(AgroContext agroContext)
         {
-            AgroContext = agroContext;
-            Db = AgroContext.Set<T>();
+            this.agroContext = agroContext;
+            db = this.agroContext.Set<T>();
         }
 
         public async Task<IEnumerable<T>> GetAll()
-            => await Db.ToListAsync();
+            => await db.ToListAsync();
 
         public async Task<T> GetById(Guid id)
-            => await Db.FirstOrDefaultAsync(d => d.Id == id);
+            => await db.FirstOrDefaultAsync(d => d.Id == id);
 
         public async Task Add(T entity)
-            => await Db.AddAsync(entity);
+            => await db.AddAsync(entity);
 
         public void Update(T entity)
-            => Db.Update(entity);
+            => db.Update(entity);
     }
 }

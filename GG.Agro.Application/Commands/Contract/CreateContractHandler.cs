@@ -9,13 +9,13 @@ namespace GG.Agro.Application.Commands.Contract
 {
     public class CreateContractHandler : IRequestHandler<CreateContractCommand, ValidationResult>
     {
-        private IMapper Mapper { get; }
-        private IUnitOfWork UnitOfWork { get; }
+        private IMapper mapper;
+        private IUnitOfWork unitOfWork;
 
         public CreateContractHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            Mapper = mapper;
-            UnitOfWork = unitOfWork;
+            this.mapper = mapper;
+            this.unitOfWork = unitOfWork;
         }
 
         public async Task<ValidationResult> Handle(CreateContractCommand request, CancellationToken cancellationToken)
@@ -23,10 +23,10 @@ namespace GG.Agro.Application.Commands.Contract
             if (!request.IsValid())
                 return request.GetValidationResult();
 
-            var contract = Mapper.Map<Domain.Entities.Contract>(request);
+            var contract = mapper.Map<Domain.Entities.Contract>(request);
 
-            await UnitOfWork.Contracts.Add(contract);
-            await UnitOfWork.Commit();
+            await unitOfWork.Contracts.Add(contract);
+            await unitOfWork.Commit();
 
             return request.GetValidationResult();
         }

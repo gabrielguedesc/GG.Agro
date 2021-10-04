@@ -6,7 +6,7 @@ namespace GG.Agro.Infra.Repositories
 {
     public class ContractRepository : BaseRepository<Contract>, IContractRepository
     {
-        private AgroContext AgroContext { get; }
+        private AgroContext agroContext;
 
         public ContractRepository(AgroContext agroContext) : base(agroContext)
         {

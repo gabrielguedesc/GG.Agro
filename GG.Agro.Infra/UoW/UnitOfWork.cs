@@ -2,24 +2,23 @@
 using GG.Agro.Infra.Contexts;
 using GG.Agro.Infra.Repositories;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace GG.Agro.Infra.UoW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private AgroContext AgroContext { get; }
-        private Lazy<IContractRepository> ContractLazy { get; }
-        public IContractRepository Contracts => ContractLazy.Value;
+        private AgroContext agroContext;
+        private Lazy<IContractRepository> contractLazy;
+        public IContractRepository Contracts => contractLazy.Value;
 
         public UnitOfWork(AgroContext agroContext)
         {
-            AgroContext = agroContext;
-            ContractLazy = new(() => new ContractRepository(agroContext));
+            this.agroContext = agroContext;
+            contractLazy = new(() => new ContractRepository(agroContext));
         }
 
         public async Task Commit()
-            => await AgroContext.SaveChangesAsync();
+            => await agroContext.SaveChangesAsync();
     }
 }

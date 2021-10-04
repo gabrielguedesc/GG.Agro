@@ -32,7 +32,7 @@ namespace GG.Agro.Tests.Cases.Application.Contract.Handlers
             // Act
             var result = await handler.Handle(contract, CancellationToken.None);
 
-
+            // Asserts
             Assert.True(result.IsValid);
 
             uow.Verify(c => c.Contracts.Add(It.IsAny<Domain.Entities.Contract>()), Times.Once);
