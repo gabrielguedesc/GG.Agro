@@ -13,7 +13,7 @@ namespace GG.Agro.Tests.Cases.Application.Contract.Handlers
     [Trait("Contract", "Create")]
     public class CreateContractHandlerTests
     {
-        [Theory(DisplayName = "When invalid contract name, testing false output"), AutoAssert]
+        [Theory(DisplayName = "When invalid contract name, testing false output"), AutoArrange]
         public async Task CreateContractHandler_InvalidName_ShouldReturnFalse(ContractWithInvalidName invalidContract, 
             CreateContractHandler handler)
         {
@@ -25,7 +25,7 @@ namespace GG.Agro.Tests.Cases.Application.Contract.Handlers
             Assert.Single(result.Errors);
         }
 
-        [Theory(DisplayName = "When valid contract, testing true output"), AutoAssert]
+        [Theory(DisplayName = "When valid contract, testing true output"), AutoArrange]
         public async Task CreateContractHandler_ValidContract_ShouldReturnTrue([Frozen] Mock<IUnitOfWork> uow, 
             ValidContract contract, CreateContractHandler handler)
         {

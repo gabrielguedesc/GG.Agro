@@ -4,7 +4,7 @@ using AutoFixture.Xunit2;
 
 namespace GG.Agro.Tests.Core
 {
-    public class AutoAssertAttribute : AutoDataAttribute
+    public class AutoArrangeAttribute : AutoDataAttribute
     {
         private static Fixture CreateCustomFixture()
         {
@@ -13,13 +13,10 @@ namespace GG.Agro.Tests.Core
             fixture.Customize(new AutoMoqCustomization())
                    .Inject(new Bogus.Faker());
 
-            //fixture.Customize(new AutoNSubstituteCustomization())
-            //       .Inject(new Bogus.Faker());
-
             return fixture;
         }
 
-        public AutoAssertAttribute()
+        public AutoArrangeAttribute()
             : base(() => CreateCustomFixture()) { }
     }
 }
